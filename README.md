@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# AI Study Assistant
 
 基于 Streamlit + DeepSeek API 开发的智能学习助手。
@@ -24,3 +25,6 @@ pip install -r requirements.txt
 
 streamlit run app.py
 ```
+=======
+# AI-Study-Assistant
+>>>>>>> 1f1b56b7c1f0f5c894e7ca68ab70142495b782c4
