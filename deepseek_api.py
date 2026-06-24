@@ -1,7 +1,14 @@
 from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(BASE_DIR, ".env")
+
+load_dotenv(env_path)
 
 client = OpenAI(
-    api_key="sk-a1a8e85324c94084b290e258ad6f1eaf",
+    api_key=os.getenv("DEEPSEEK_API_KEY"),
     base_url="https://api.deepseek.com"
 )
 
@@ -10,10 +17,7 @@ def ask_ai(question):
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages=[
-            {
-                "role": "user",
-                "content": question
-            }
+            {"role": "user", "content": question}
         ]
     )
 
@@ -23,16 +27,7 @@ def ask_ai(question):
 def summarize_text(text):
 
     prompt = f"""
-请总结下面学习资料。
-
-要求：
-
-1. 核心知识点
-2. 重点内容
-3. 考试高频考点
-4. 简洁明了
-
-资料内容：
+请总结下面学习资料：
 
 {text[:12000]}
 """
@@ -40,10 +35,7 @@ def summarize_text(text):
     response = client.chat.completions.create(
         model="deepseek-chat",
         messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
+            {"role": "user", "content": prompt}
         ]
     )
 
