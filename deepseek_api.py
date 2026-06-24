@@ -23,6 +23,14 @@ def ask_ai(question):
 
     return response.choices[0].message.content
 
+def ask_ai_with_history(messages):
+
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=messages
+    )
+
+    return response.choices[0].message.content
 
 def summarize_text(text):
 
@@ -111,3 +119,4 @@ def ask_with_document(question, document_text):
     )
 
     return response.choices[0].message.content
+

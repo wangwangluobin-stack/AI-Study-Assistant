@@ -2,9 +2,11 @@ import streamlit as st
 
 from deepseek_api import (
     ask_ai,
+    ask_ai_with_history,
     ask_with_document,
     summarize_text,
     generate_exam_questions
+    
 )
 
 from pdf_reader import read_pdf
@@ -41,7 +43,7 @@ if "knowledge_base" not in st.session_state:
 if "document_names" not in st.session_state:
     st.session_state.document_names = []
 
-st.title("📚 AI学习助手 V2.3")
+st.title("📚 AI学习助手 V2.4")
 with st.sidebar:
 
     st.header("💬 对话管理")
@@ -246,17 +248,26 @@ if prompt:
 
             else:
 
-                answer = ask_ai(prompt)
+                current_messages = st.session_state.chats[
+                    st.session_state.current_chat
+                ]
+
+                history = current_messages[-10:]
+
+                answer = ask_ai_with_history(
+                    history
+                )
 
             st.markdown(answer)
 
-    st.session_state.messages.append(
+    st.session_state.chats[
+        st.session_state.current_chat
+    ].append(
         {
             "role": "assistant",
             "content": answer
         }
     )
-
 
 # =========================
 # 学习资料分析
